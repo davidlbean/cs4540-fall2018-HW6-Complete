@@ -1,0 +1,32 @@
+
+<h3>Your Listings</h3>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Pricing</th>
+      <th>Age</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @listings.each do |listing| %>
+      <tr>
+        <td>
+          <%# -- I've made the show action a link under the listing title -- %>
+          <%= link_to listing.title, listing %></td>
+        <td><%= listing.pricing %></td>
+        <td><%= time_ago_in_words(listing.listings_poll.finished_at) unless listing.listings_poll.finished_at.blank? %></td>
+        <td>
+          <%# -- this is a little different format for the link_to helper.  -- %>
+          <%# -- it lets me make an icon be the item to be clicked on.      -- %>
+          <%# -- whatever is in the do/end block will be contents of <a>..</a> -- %>
+          <%= link_to listing, method: :delete, data: { confirm: 'Are you sure?' } do fa_icon "trash" end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%# -- removing the link to add a new listing because we don't want done by a user -- %>
